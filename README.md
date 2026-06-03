@@ -14,6 +14,8 @@ This tool runs a set of **deterministic checks** against a pasted detection pack
 
 It is a **pre-filter for human review**, not a replacement for it.
 
+---
+
 ## Screenshots
 
 ### Initial state
@@ -33,19 +35,6 @@ The bad sample fails validation because it is missing required sections, uses an
 The good sample passes validation with 0 errors and 0 warnings.
 
 ![Good Sample PASS](docs/screenshots/good-sample-pass.jpg)
-
----
-
-## Screenshots
-
-> _Add screenshots here before publishing._
-
-| View | Image |
-|---|---|
-| Good sample — PASS | `![Good sample result](docs/screenshot-pass.png)` |
-| Bad sample — FAIL | `![Bad sample result](docs/screenshot-fail.png)` |
-
-_(Replace the placeholders above with real images once captured. Suggested location: `docs/`.)_
 
 ---
 
