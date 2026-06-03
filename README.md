@@ -14,6 +14,26 @@ This tool runs a set of **deterministic checks** against a pasted detection pack
 
 It is a **pre-filter for human review**, not a replacement for it.
 
+## Screenshots
+
+### Initial state
+
+The validator starts with a clean input panel and an empty validation result panel.
+
+![Initial state](docs/screenshots/initial-empty-state.jpg)
+
+### Bad Sample — FAIL
+
+The bad sample fails validation because it is missing required sections, uses an unknown table, and lacks a time filter.
+
+![Bad Sample FAIL](docs/screenshots/bad-sample-fail.jpg)
+
+### Good Sample — PASS
+
+The good sample passes validation with 0 errors and 0 warnings.
+
+![Good Sample PASS](docs/screenshots/good-sample-pass.jpg)
+
 ---
 
 ## Screenshots
