@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KQL Detection Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Inline fallback: confirms dark theme even if external CSS fails to load -->
+  <style>
+    body { background: #0b0e14; color: #e5e7eb; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Top bar ── -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-brand">
+        <span class="topbar-icon">&#9632;</span>
+        <span class="topbar-title"><em>KQL</em> Detection Assistant</span>
+        <span class="topbar-badge">v1</span>
+      </div>
+      <div class="topbar-sub">Microsoft Defender XDR &middot; Structural Validator</div>
+    </div>
+  </div>
+
+  <!-- ── Page body ── -->
+  <main class="page">
+
+    <!-- ── Disclaimer ── -->
+    <div class="notice">
+      <span class="notice-icon">&#9432;</span>
+      <span>
+        This tool does not prove a query is production-ready. It checks structure,
+        obvious table/field issues, missing sections, and analyst review requirements.
+        Human review is always required before deploying any detection.
+      </span>
+    </div>
+
+    <!-- ── Two-column workspace ── -->
+    <div class="workspace">
+
+      <!-- ── LEFT: input panel ── -->
+      <section class="panel panel-input">
+        <div class="panel-header">
+          <span class="panel-title">Detection Package</span>
+          <span class="panel-hint">Paste Markdown output from an AI model</span>
+        </div>
+        <div class="panel-body">
+          <textarea
+            id="detection-input"
+            spellcheck="false"
+            placeholder="# Detection Goal&#10;Detect suspicious PowerShell launched by Outlook...&#10;&#10;# KQL Query&#10;&#96;&#96;&#96;kql&#10;DeviceProcessEvents&#10;| where Timestamp > ago(7d)&#10;...&#10;&#96;&#96;&#96;&#10;&#10;# False Positives&#10;...&#10;&#10;# Human Review Checklist&#10;- [ ] Review command line..."
+          ></textarea>
+        </div>
+        <div class="panel-footer">
+          <div class="btn-group-primary">
+            <button id="btn-validate" class="btn btn-primary">
+              <span class="btn-icon">&#10003;</span> Validate
+            </button>
+          </div>
+          <div class="btn-group-secondary">
+            <button id="btn-good"  class="btn btn-good">Good Sample</button>
+            <button id="btn-bad"   class="btn btn-bad">Bad Sample</button>
+            <button id="btn-clear" class="btn btn-ghost">Clear</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── RIGHT: results panel ── -->
+      <section class="panel panel-results">
+        <div class="panel-header">
+          <span class="panel-title">Validation Results</span>
+          <span class="panel-hint">Run validation to see results</span>
+        </div>
+
+        <!-- Empty state (shown before first validation) -->
+        <div id="results-empty" class="results-empty">
+          <div class="empty-icon">&#9670;</div>
+          <p>Paste a detection package on the left,<br>then click <strong>Validate</strong>.</p>
+        </div>
+
+        <!-- Results (hidden until validation runs) -->
+        <div id="results" class="hidden">
+
+          <!-- Verdict banner -->
+          <div id="verdict" class="verdict">
+            <div class="verdict-left">
+              <div id="verdict-label" class="verdict-label">PASS</div>
+              <div id="verdict-summary" class="verdict-summary"></div>
+            </div>
+          </div>
+
+          <!-- Info cards -->
+          <div class="info-cards">
+            <div class="info-card">
+              <div class="card-label">Table Detected</div>
+              <div id="card-table" class="card-value">—</div>
+            </div>
+            <div class="info-card">
+              <div class="card-label">KQL Block</div>
+              <div id="card-kql" class="card-value">—</div>
+            </div>
+            <div class="info-card">
+              <div class="card-label">Errors</div>
+              <div id="card-errors" class="card-value">—</div>
+            </div>
+            <div class="info-card">
+              <div class="card-label">Warnings</div>
+              <div id="card-warnings" class="card-value">—</div>
+            </div>
+          </div>
+
+          <!-- Check list -->
+          <div class="checks-panel">
+            <div class="checks-header">Validation Checks</div>
+            <div id="check-list"></div>
+          </div>
+
+          <!-- Human review reminder -->
+          <div class="review-block">
+            <div class="review-title">&#9888; Human Review Required</div>
+            <p>
+              Even a fully passing package must be reviewed by a qualified analyst
+              before deployment. This tool cannot assess query logic, environmental
+              context, or threat relevance.
+            </p>
+          </div>
+
+        </div><!-- /#results -->
+      </section>
+
+    </div><!-- /.workspace -->
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    Static local validator &mdash; No data leaves the browser &mdash; KQL Detection Assistant v1
+  </footer>
+
+  <script src="app.js?v=2"></script>
+</body>
+</html>
